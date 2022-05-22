@@ -43,14 +43,9 @@ func getPetHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for pet := range db {
-		if pet == id[0] {
-			_, err := fmt.Fprint(w, db[pet])
-
-			if err != nil {
-				log.Println("An error occurred while sending a response")
-				log.Println(err)
-			}
-		}
+	if db[id[0]] != "" {
+		_, _ = fmt.Fprint(w, db[id[0]])
+	} else {
+		_, _ = fmt.Fprint(w, "pet not found in database")
 	}
 }
